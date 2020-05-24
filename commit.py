@@ -1,21 +1,25 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 from git import Repo
-import os
+import time
+
+def timestamp_to_str(timestamp, format='%b %d %H:%M:%S %Y'):
+    return time.strftime(format, time.localtime(timestamp))
+
+def str_to_timestamp(str_time, format='%Y-%m-%d %H:%M:%S'):
+    return int(time.mktime(time.strptime(str_time, format)))
 
 if __name__ == '__main__':
-    repo = Repo('./1998')
+    repo = Repo('./2000')
     git = repo.git
-    '''
-    can use below, waiting for my update...
-    git.commit('--allow-empty', '--date="月 日 时间 年 +0800"', '-m', '')
-    '''
     with open('./map.qs', 'r') as fp:
         for line in fp.readlines():
             line = line.split()
             '''
-            UTC时区加上浏览时js判断的时区，会导致实际差了16小时，我懵的
+            github贡献统计时间取决于服务器位置，当前我测试发现和实际提交时间差了-16小时，
+            可能是使用的旧金山的时间，我懵的，如果显示不对要自己改下后面时间。
             '''
-            os.system('date {} && time {}'.format(line[0], '16:00:00'))
+            #os.system('date {} && time {}'.format(line[0], '16:00:00'))
             for i in range(int(line[1])):
-                git.commit('--allow-empty', '-m', line[0] + '_' + str(i+1))
+                time_str = timestamp_to_str(str_to_timestamp(line[0] + ' 16:00:00')) + ' +0800'
+                git.commit('--allow-empty', '--date=' + time_str, '-m', line[0] + '_' + str(i+1))
