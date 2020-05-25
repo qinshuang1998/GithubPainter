@@ -10,8 +10,10 @@ def str_to_timestamp(str_time, format='%Y-%m-%d %H:%M:%S'):
     return int(time.mktime(time.strptime(str_time, format)))
 
 if __name__ == '__main__':
-    repo = Repo('./2000')
+    # 事先准备一个本地的空Git仓库，填上路径
+    repo = Repo('./1998')
     git = repo.git
+    # 加载设计器导出的文件
     with open('./map.qs', 'r') as fp:
         for line in fp.readlines():
             line = line.split()

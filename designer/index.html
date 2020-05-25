@@ -34,9 +34,10 @@
             <button type="button" class="am-btn am-btn-default am-margin-right" id="my-end">结束日期</button><span id="my-endDate">2000-12-31</span>
         </div>
     </div>
-    <div id="main" style="width:600px;height:220px;margin:0 auto;"></div>
+    <div id="main" style="height:400px;"></div>
     <div class="am-g">
         <div class="am-u-sm-12 am-text-center">
+            <button type="button" class="am-btn am-btn-default clear" data-am-popover="{content: '在面板上拖动鼠标以擦除痕迹', trigger: 'hover focus'}">橡皮擦</button>
             <button type="button" class="am-btn am-btn-default am-text-center out">导出</button>
         </div>
     </div>
@@ -73,8 +74,8 @@
     var startDate = new Date(2000, 0, 1);
     var endDate = new Date(2000, 11, 31);
     var $alert = $('#my-alert');
-    $('#my-start').datepicker().
-    on('changeDate.datepicker.amui', function(event) {
+    var clear = 0;
+    $('#my-start').datepicker().on('changeDate.datepicker.amui', function(event) {
         if (event.date.valueOf() > endDate.valueOf()) {
             $alert.find('p').text('开始日期应小于结束日期！').end().show();
         } else {
@@ -85,11 +86,10 @@
             option.series.data = getVirtulData();
             myChart.setOption(option);
         }
-        $(this).datepicker('close');
+        //$(this).datepicker('close');
     });
 
-    $('#my-end').datepicker().
-    on('changeDate.datepicker.amui', function(event) {
+    $('#my-end').datepicker().on('changeDate.datepicker.amui', function(event) {
         if (event.date.valueOf() < startDate.valueOf()) {
             $alert.find('p').text('结束日期应大于开始日期！').end().show();
         } else {
@@ -100,14 +100,14 @@
             option.series.data = getVirtulData();
             myChart.setOption(option);
         }
-        $(this).datepicker('close');
+        //$(this).datepicker('close');
     });
 
     var myChart = echarts.init(document.getElementById('main'));
 
     myChart.on('click', function(e) {
         var data = e.data;
-        var days = getDays(data[0])
+        var days = getDays(data[0]);
         if (data[1] == 0) {
             data[1] += 2;
         } else if (data[1] == 16) {
@@ -117,6 +117,26 @@
         }
         option.series.data[days] = data;
         myChart.setOption(option);
+    });
+
+    $('.clear').click(function() {
+        if (clear == 0) {
+            myChart.on('mousemove', function(e) {
+                var data = e.data;
+                var days = getDays(data[0]);
+                data[1] = 0;
+                option.series.data[days] = data;
+                myChart.setOption(option);
+            });
+            $('.clear').addClass('am-active');
+            $('.clear').text('橡皮擦使用中');
+            ++clear;
+        } else if (clear == 1) {
+            myChart.off("mousemove");
+            $('.clear').removeClass('am-active');
+            $('.clear').text('橡皮擦');
+            --clear;
+        }
     });
 
     $('.out').click(function() {
@@ -183,7 +203,7 @@
             showLabel: false,
             text: ['More', 'Less'],
             left: 'center',
-            top: 30,
+            top: 50,
             textStyle: {
                 color: '#000'
             },
@@ -192,10 +212,10 @@
             }
         },
         calendar: {
-            top: 100,
-            left: 50,
-            right: 30,
-            cellSize: ['auto', 13],
+            top: 150,
+            left: 'center',
+            height: 140,
+            cellSize: [20, 20],
             range: [startDate, endDate],
             itemStyle: {
                 borderWidth: 0.5
