@@ -1,5 +1,5 @@
 # Github Painter
-The art of github contributions heatmap. see [my birthday print](https://github.com/Achuan-2?tab=overview&from=2000-01-01&to=2000-12-31)  
+The art of github contributions heatmap. The result see [my birthday print](https://github.com/Achuan-2?tab=overview&from=2000-01-01&to=2000-12-31)  
 fork from https://github.com/qinshuang1998/GithubPainter
 
 ![heatmap](https://user-images.githubusercontent.com/60436214/134492728-aee1311d-63b6-4f4f-93b6-8007d1136cfe.png)
