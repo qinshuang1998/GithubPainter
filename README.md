@@ -1,7 +1,7 @@
 # Github Painter
 The art of github contributions heatmap.
 
-ex. https://github.com/qinshuang1998?tab=overview&from=1998-01-01&to=1998-12-31
+ex. https://github.com/Achuan-2?tab=overview&from=2000-01-01&to=2000-12-31
 
 ![heatmap](https://inews.gtimg.com/newsapp_ls/0/11799836198/0)
 
