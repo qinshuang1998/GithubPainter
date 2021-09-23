@@ -9,6 +9,6 @@ Step1. Open the `./designer/index.html`
 Step2. Custom the start and end time you like, then design your artwork by clicking the mouse on heatmap.
 ![designer](https://user-images.githubusercontent.com/60436214/134492793-3c33fab4-a2a7-46b8-99a9-8ee04a031889.png)
 
-Step3. Output the map file and run the python script with this file.run `python .\commit.py -i "your local path of git repo"` in your terminal, such as `python .\commit.py -i "E:\Github\birthday"`
+Step3. Output the map file and run the python script  `python .\commit.py -i "your local path of git repo"` in your terminal, such as `python .\commit.py -i "E:\Github\birthday"`
 
 Step4. Ok, let's `git push` and enjoy!
